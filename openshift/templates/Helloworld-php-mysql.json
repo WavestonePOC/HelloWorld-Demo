@@ -2,7 +2,7 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "Helloworld-php-mysql",
+    "name": "helloworld-php-mysql",
     "annotations": {
       "description": "wavestone php mysql",
       "tags": "quickstart,php,helloworld,mysql",
@@ -10,7 +10,7 @@
     }
   },
   "labels": {
-    "template": "Helloworld-php-mysql"
+    "template": "helloworld-php-mysql"
   },
   "objects": [
     {
@@ -131,10 +131,7 @@
             "pre": {
               "failurePolicy": "Retry",
               "execNewPod": {
-                "command": [
-                  "./migrate-database.sh"
-                ],
-                "containerName": "Helloworld-php-mysql"
+                "containerName": "helloworld-php-mysql"
               }
             }
           }
@@ -145,7 +142,7 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "Helloworld-php-mysql"
+                "helloworld-php-mysql"
               ],
               "from": {
                 "kind": "ImageStreamTag",
@@ -157,7 +154,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 2,
+        "replicas": 1,
         "selector": {
           "name": "${NAME}"
         },
@@ -171,7 +168,7 @@
           "spec": {
             "containers": [
               {
-                "name": "Helloworld-php-mysql",
+                "name": "helloworld-php-mysql",
                 "image": " ",
                 "ports": [
                   {
@@ -364,7 +361,7 @@
       "displayName": "Name",
       "description": "The name assigned to all of the frontend objects defined in this template.",
       "required": true,
-      "value": "Helloworld-php-mysql"
+      "value": "helloworld-php-mysql"
     },
     {
       "name": "NAMESPACE",
