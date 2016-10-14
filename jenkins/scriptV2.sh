@@ -36,6 +36,7 @@ else
 
   # Application already exists, just need to start a new build
   echo "App Exists. Triggering application build and deployment"
+  BUILD_CONFIG=`oc get bc | tail -1 | awk '{print $1}'`
   BUILD_ID=`oc start-build ${BUILD_CONFIG}`
 
 fi
@@ -133,25 +134,6 @@ oc scale --replicas=1 rc $RC_ID
 
 
 echo "Checking for successful test deployment at $HOSTNAME"
-set +e
-rc=1
-count=0
-attempts=200
-while [ $rc -ne 0 -a $count -lt $attempts ]; do
-  if curl -s --connect-timeout 2 $APP_HOSTNAME >& /dev/null; then
-    rc=0
-    break
-  fi
-  count=$(($count+1))
-  echo "Attempt $count/$attempts"
-  sleep 5
-done
-set -e
-
-if [ $rc -ne 0 ]; then
-    echo "Failed to access test deployment, aborting roll out."
-    exit 1
-fi
 
 
 ################################################################################

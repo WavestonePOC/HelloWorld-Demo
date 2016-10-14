@@ -2,15 +2,15 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "helloworld-php-mysql",
+    "name": "helloworld-php-pgsql",
     "annotations": {
-      "description": "wavestone php mysql",
-      "tags": "quickstart,php,helloworld,mysql",
+      "description": "wavestone php pgsql",
+      "tags": "quickstart,php,helloworld,pgsql",
       "iconClass": "icon-php"
     }
   },
   "labels": {
-    "template": "helloworld-php-mysql"
+    "template": "helloworld-php-pgsql"
   },
   "objects": [
     {
@@ -307,18 +307,11 @@
                     "mountPath": "/var/lib/pgsql/data"
                   }
                 ],
-                "readinessProbe": {
-                  "timeoutSeconds": 1,
-                  "initialDelaySeconds": 5,
-                  "exec": {
-                    "command": [ "/bin/sh", "-i", "-c", "psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c 'SELECT 1'"] ]
-                  }
-                },
                 "livenessProbe": {
                     "timeoutSeconds": 1,
                     "initialDelaySeconds": 30,
                     "tcpSocket": {
-                        "port": 3306
+                        "port": 5432
                     }
                 },
                 "env": [
@@ -353,7 +346,7 @@
       "displayName": "Name",
       "description": "The name assigned to all of the frontend objects defined in this template.",
       "required": true,
-      "value": "helloworld-php-mysql"
+      "value": "helloworld-php-pgsql"
     },
     {
       "name": "NAMESPACE",
@@ -371,8 +364,8 @@
     },
     {
       "name": "MEMORY_PGSQL_LIMIT",
-      "displayName": "Memory Limit (MySQL)",
-      "description": "Maximum amount of memory the MySQL container can use.",
+      "displayName": "Memory Limit (PGsql)",
+      "description": "Maximum amount of memory the PGsql container can use.",
       "required": true,
       "value": "100Mi"
     },
@@ -410,14 +403,14 @@
       "name": "DATABASE_SERVICE_NAME",
       "displayName": "Database Service Name",
       "required": true,
-      "value": "wavestone-mysql"
+      "value": "pgsql"
     },
     {
       "name": "DATABASE_ENGINE",
       "displayName": "Database Engine",
       "description": "Database engine: postgresql, mysql or sqlite (default).",
       "required": true,
-      "value": "mysql"
+      "value": "postgresql"
     },
     {
       "name": "DATABASE_NAME",
