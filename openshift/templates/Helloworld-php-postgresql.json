@@ -126,7 +126,7 @@
       },
       "spec": {
         "strategy": {
-          "type": "Recreate",
+          "type": "Recreate"
         },
         "triggers": [
           {
@@ -134,7 +134,7 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "helloworld-php-mysql"
+                "php"
               ],
               "from": {
                 "kind": "ImageStreamTag",
@@ -160,7 +160,7 @@
           "spec": {
             "containers": [
               {
-                "name": "helloworld-php-mysql",
+                "name": "php",
                 "image": " ",
                 "ports": [
                   {
@@ -171,7 +171,7 @@
                   "timeoutSeconds": 3,
                   "initialDelaySeconds": 3,
                   "httpGet": {
-                    "path": "/health.php",
+                    "path": "/index.php",
                     "port": 8080
                   }
                 },
@@ -232,9 +232,9 @@
       "spec": {
         "ports": [
           {
-            "name": "mysql",
-            "port": 3306,
-            "targetPort": 3306
+            "name": "postgresql",
+            "port": 5432,
+            "targetPort": 5432
           }
         ],
         "selector": {
@@ -261,12 +261,12 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "mysql"
+                "postgresql"
               ],
               "from": {
                 "kind": "ImageStreamTag",
                 "namespace": "${NAMESPACE}",
-                "name": "mysql:5.6"
+                "name": "postgresql:latest"
               }
             }
           },
@@ -294,24 +294,24 @@
             ],
             "containers": [
               {
-                "name": "mysql",
+                "name": "postgresql",
                 "image": " ",
                 "ports": [
                   {
-                    "containerPort": 3306
+                    "containerPort": 5432
                   }
                 ],
                 "volumeMounts": [
                   {
                     "name": "data",
-                    "mountPath": "/var/lib/mysql/data"
+                    "mountPath": "/var/lib/pgsql/data"
                   }
                 ],
                 "readinessProbe": {
                   "timeoutSeconds": 1,
                   "initialDelaySeconds": 5,
                   "exec": {
-                    "command": [ "/bin/sh", "-i", "-c", "MYSQL_PWD='${DATABASE_PASSWORD}' mysql -h 127.0.0.1 -u ${DATABASE_USER} -D ${DATABASE_NAME} -e 'SELECT 1'" ]
+                    "command": [ "/bin/sh", "-i", "-c", "psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c 'SELECT 1'"] ]
                   }
                 },
                 "livenessProbe": {
@@ -323,21 +323,21 @@
                 },
                 "env": [
                     {
-                        "name": "MYSQL_USER",
+                        "name": "POSTGRESQL_USER",
                         "value": "${DATABASE_USER}"
                     },
                     {
-                        "name": "MYSQL_PASSWORD",
+                        "name": "POSTGRESQL_PASSWORD",
                         "value": "${DATABASE_PASSWORD}"
                     },
                     {
-                        "name": "MYSQL_DATABASE",
+                        "name": "POSTGRESQL_DATABASE",
                         "value": "${DATABASE_NAME}"
                     }
                 ],
                 "resources": {
                     "limits": {
-                        "memory": "${MEMORY_MYSQL_LIMIT}"
+                        "memory": "${MEMORY_PGSQL_LIMIT}"
                     }
                 }
               }
@@ -370,7 +370,7 @@
       "value": "100Mi"
     },
     {
-      "name": "MEMORY_MYSQL_LIMIT",
+      "name": "MEMORY_PGSQL_LIMIT",
       "displayName": "Memory Limit (MySQL)",
       "description": "Maximum amount of memory the MySQL container can use.",
       "required": true,
