@@ -16,7 +16,7 @@ $connectionstring='"'.getenv("DATABASE_SERVICE_NAME")." ".getenv("DATABASE_NAME"
 echo $connectionstring;
 echo "\r\n";
 
-echo $dbconn=pg_connect($connectionstring);
+echo $dbconn=pg_connect(getenv("DATABASE_SERVICE_NAME"));
 
 echo "\r\n";
 
