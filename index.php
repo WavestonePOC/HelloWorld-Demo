@@ -11,7 +11,7 @@ echo "\r\n";
 echo getenv("DATABASE_PASSWORD");
 echo "\r\n";
 
-$connectionstring=getenv("DATABASE_SERVICE_NAME")." ".getenv("DATABASE_NAME")." ".getenv("DATABASE_USER")." ".getenv("DATABASE_PASSWORD");
+$connectionstring='"'.getenv("DATABASE_SERVICE_NAME")." ".getenv("DATABASE_NAME")." ".getenv("DATABASE_USER")." ".getenv("DATABASE_PASSWORD").'"';
 
 echo $connectionstring;
 echo "\r\n";
