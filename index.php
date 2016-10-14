@@ -1,6 +1,6 @@
 <?php
 
-echo "Bonjour Tlm!V2\n";
+echo "Bonjour Tlm!V3\n";
 
 echo getenv("DATABASE_SERVICE_NAME");
 echo "\r\n";
@@ -15,7 +15,7 @@ echo "\r\n";
 
 
 try{
-  $bdd = new PDO('mysql:host=pgsql;dbname=default;charset=utf8', 'wavestoneadmin', 'Azerty123');
+  $bdd = new PDO('mysql:host='.getenv("DATABASE_SERVICE_NAME").'pgsql;dbname=default;charset=utf8', 'wavestoneadmin', 'Azerty123');
 }catch (Exception $e){
   die('Erreur : '.$e->getMessage());
 }
