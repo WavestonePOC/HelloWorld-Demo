@@ -20,10 +20,5 @@ echo $dbconn=pg_connect($connectionstring);
 
 echo "\r\n";
 
-try{
-  $bdd = new PDO('mysql:host='.getenv("DATABASE_SERVICE_NAME").';dbname=default;charset=utf8', 'wavestoneadmin', 'Azerty123');
-}catch (Exception $e){
-  die('Erreur : '.$e->getMessage());
-}
 
 ?>
