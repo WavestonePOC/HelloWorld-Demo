@@ -11,12 +11,12 @@ echo "\r\n";
 echo getenv("DATABASE_PASSWORD");
 echo "\r\n";
 
-$connectionstring='"'.getenv("DATABASE_SERVICE_NAME")." ".getenv("DATABASE_NAME")." ".getenv("DATABASE_USER")." ".getenv("DATABASE_PASSWORD").'"';
+$connectionstring='"host='.getenv("DATABASE_SERVICE_NAME")." port=5432 dbname=".getenv("DATABASE_NAME")." user=".getenv("DATABASE_USER")." password=".getenv("DATABASE_PASSWORD").'"';
 
 echo $connectionstring;
 echo "\r\n";
 
-echo $dbconn=pg_connect(getenv("DATABASE_SERVICE_NAME"));
+echo $dbconn=pg_connect($connectionstring);
 
 echo "\r\n";
 
