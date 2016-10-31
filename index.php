@@ -19,22 +19,26 @@
 <?php
 
   echo getenv("DATABASE_SERVICE_NAME");
-  echo "\r\n";
+  echo "</br>";
   echo getenv("DATABASE_NAME");
-  echo "\r\n";
+  echo "</br>";
   echo getenv("DATABASE_USER");
-  echo "\r\n";
+  echo "</br>";
   echo getenv("DATABASE_PASSWORD");
-  echo "\r\n";
+  echo "</br>";
 
   $connectionstring='host='.getenv("DATABASE_SERVICE_NAME")." port=5432 dbname=".getenv("DATABASE_NAME")." user=".getenv("DATABASE_USER")." password=".getenv("DATABASE_PASSWORD");
 
-  echo $connectionstring;
-  echo "\r\n";
+  $dbconn=pg_connect($connectionstring);
 
-  echo $dbconn=pg_connect($connectionstring);
 
-  echo "\r\n";
+  If isset ($dbconn){
+    echo "Connexion à la base OK, connectionstring=  ";
+    echo $connectionstring;
+    echo "</br>";
+  }else{
+    echo "Connexion à la base KO ... :-(";
+  }
 
 
 ?>
