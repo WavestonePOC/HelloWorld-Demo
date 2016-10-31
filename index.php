@@ -32,7 +32,7 @@
   $dbconn=pg_connect($connectionstring);
 
 
-  If isset ($dbconn){
+  If isset($dbconn){
     echo "Connexion à la base OK, connectionstring=  ";
     echo $connectionstring;
     echo "</br>";
