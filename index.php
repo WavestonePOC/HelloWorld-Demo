@@ -12,6 +12,12 @@
 
   echo "Bonjour Tlm!V3\n";
 
+?>
+
+</br>
+
+<?php
+
   echo getenv("DATABASE_SERVICE_NAME");
   echo "\r\n";
   echo getenv("DATABASE_NAME");
